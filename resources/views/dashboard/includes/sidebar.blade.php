@@ -100,17 +100,17 @@
 
 
             <li class=" nav-item"><a href="#"><i class="la la-television"></i><span class="menu-title"
-                                                                                    data-i18n="nav.templates.main">{{ __('sidebar.settings') }}</span></a>
+                                                                                    data-i18n="nav.templates.main">{{ __('admin/sidebar.settings') }}</span></a>
                 <ul class="menu-content">
-                    <li><a class="menu-item" href="#" data-i18n="nav.templates.vert.main">{{ __('sidebar.shipping_method') }}</a>
+                    <li><a class="menu-item" href="#" data-i18n="nav.templates.vert.main">{{ __('admin/sidebar.shipping_method') }}</a>
                         <ul class="menu-content">
                             <li><a class="menu-item" href="{{ route('admin.shipping.methods', 'free-shipping') }}"
-                                   data-i18n="nav.templates.vert.classic_menu">{{ __('sidebar.free_shipping') }}</a>
+                                   data-i18n="nav.templates.vert.classic_menu">{{ __('admin/sidebar.free_shipping') }}</a>
                             </li>
-                            <li><a class="menu-item" href="{{ route('admin.shipping.methods', 'local-shipping') }}">{{ __('sidebar.local_pickup') }}</a>
+                            <li><a class="menu-item" href="{{ route('admin.shipping.methods', 'local-shipping') }}">{{ __('admin/sidebar.local_pickup') }}</a>
                             </li>
                             <li><a class="menu-item" href="{{ route('admin.shipping.methods', 'outer-shipping') }}"
-                                   data-i18n="nav.templates.vert.compact_menu">{{ __('sidebar.flat_rate') }}</a>
+                                   data-i18n="nav.templates.vert.compact_menu">{{ __('admin/sidebar.flat_rate') }}</a>
                             </li>
                         </ul>
                     </li>
