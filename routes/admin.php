@@ -22,6 +22,8 @@ Route::group([
         'prefix' => 'admin'
     ], function(){
 
+        Route::get('logout', [LoginController::class, 'logout'])->name('admin.logout');
+
         Route::get('', [DashboardController::class, 'index'])->name('admin.dashboard');
 
         Route::group(['prefix' => 'settings'], function () {

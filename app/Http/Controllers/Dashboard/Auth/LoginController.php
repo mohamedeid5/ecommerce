@@ -8,11 +8,18 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
+    /**
+     *
+     */
     public function login()
     {
         return view('dashboard.auth.login');
     }
 
+    /**
+     * @param AdminLoginRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function login_post(AdminLoginRequest $request)
     {
        $remember_me = $request->has('remember-me') ? true : false;
@@ -25,4 +32,21 @@ class LoginController extends Controller
 
        return redirect()->back()->with(['error' => 'هناك خطأ في البيانات']);
     }
+
+    public function logout()
+    {
+        $guard = $this->getGuard();
+
+        $guard->logout();
+
+        return redirect()->route('admin.login');
+
+    }
+
+    private function getGuard()
+    {
+        return auth('admin');
+    }
+
+
 }

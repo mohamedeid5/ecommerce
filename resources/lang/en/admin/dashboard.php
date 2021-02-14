@@ -14,5 +14,6 @@ return [
     'total_price' => 'Total Price',
     'product_name' => 'Product Name',
     'rate' => 'Rate',
+    'logout' => 'Logout',
 
 ];
