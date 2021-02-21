@@ -18,7 +18,9 @@ class Setting extends Model
     /**
      * @var string[]
      */
-    protected $fillable = ['key', 'is_translatable', 'palin_value'];
+    protected $fillable = [
+        'key', 'is_translatable', 'palin_value'
+    ];
 
     /**
      * @var string[]
