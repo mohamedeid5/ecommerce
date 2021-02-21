@@ -31,7 +31,7 @@ class SettingSeeder extends Seeder
                 'free_shipping_label' => 'Free Shipping',
                 'local_label' => 'Local Shipping',
                 'outer_label' => 'Outer Shipping',
-            ]
+            ],
         ]);
     }
 }

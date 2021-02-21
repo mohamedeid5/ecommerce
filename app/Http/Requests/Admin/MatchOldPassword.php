@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Hash;
 
-class ShippingsRquest extends FormRequest
+class MatchOldPassword extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,19 +17,20 @@ class ShippingsRquest extends FormRequest
         return true;
     }
 
+    public function passes($value): bool
+    {
+        return Hash::check($value, auth('admin')->user()->password);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
      * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
-            'value' => 'required',
-            'plain_value' => 'nullable|numeric'
+            //
         ];
     }
-
-
-
 }

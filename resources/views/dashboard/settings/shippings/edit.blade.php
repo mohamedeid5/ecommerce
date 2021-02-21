@@ -16,6 +16,15 @@
                 <form method="post" action="{{ route('admin.update.shipping.methods', $method->id) }}">
                     @csrf
                     @method('PUT')
+                    <label for="">{{ __('general.language') }}</label>
+                    <select class="form-select" name="lang" aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                        @foreach(LaravelLocalization::getSupportedLocales() as $localCode => $lang)
+                            <option value="{{ $localCode }}">{{ $lang['name'] }}</option>
+                        @endforeach
+
+                    </select>
+
                     <div class="form-group">
                         <label for="key">{{ __('admin/settings.label') }}</label>
                         <input type="text" class="form-control" name="value" id="key" value="{{ old('value', $method->value) }}" aria-describedby="key" placeholder="key">
@@ -30,7 +39,7 @@
                     @error('plain_value')
                     <span class="text-danger">{{$message}}</span>
                     @enderror
-                    <button type="submit" class="btn btn-primary">{{ __('admin/settings.save') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('general.save') }}</button>
                 </form>
                 </div>
                 </div>
