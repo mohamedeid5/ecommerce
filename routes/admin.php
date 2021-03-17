@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\Auth\LoginController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\SettingsController;
+use App\Http\Controllers\Dashboard\CategoryController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -17,31 +18,38 @@ Route::group([
 
 
     Route::group([
-        'namespace'=>'Dashboard',
+        #'namespace'=>'Dashboard',
         'middleware'=>'auth:admin',
-        'name'=>'admin.',
+        'as'=>'admin.',
         'prefix' => 'admin'
     ], function(){
 
         // logout route
-        Route::get('logout', [LoginController::class, 'logout'])->name('admin.logout');
+        Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
         // dashboard route
         Route::get('', [DashboardController::class, 'index'])->name('admin.dashboard');
 
         // settings routes
         Route::group(['prefix' => 'settings'], function () {
-            Route::get('shipping-methods/{type}', [SettingsController::class, 'shippingMethods'])->name('admin.shipping.methods');
-            Route::put('shipping-methods/{id}', [SettingsController::class, 'updateShippingMethods'])->name('admin.update.shipping.methods');
+            Route::get('shipping-methods/{type}', [SettingsController::class, 'shippingMethods'])->name('shipping.methods');
+            Route::put('shipping-methods/{id}', [SettingsController::class, 'updateShippingMethods'])->name('update.shipping.methods');
         }); // end settings routes
 
         // profile routes
         Route::group(['prefix' => 'profile'], function(){
 
-            Route::get('edit', [ProfileController::class, 'edit'])->name('admin.profile.edit');
-            Route::put('edit', [ProfileController::class, 'update'])->name('admin.profile.update');
+            Route::get('edit', [ProfileController::class, 'edit'])->name('profile.edit');
+            Route::put('edit', [ProfileController::class, 'update'])->name('profile.update');
 
         }); // end profile routes
+
+        /** categories routes */
+
+
+        Route::resource('categories', CategoryController::class);
+
+
 
     }); // end admin routes
 

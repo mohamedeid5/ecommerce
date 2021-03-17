@@ -14,6 +14,7 @@ class CategoryDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Category::factory()->count(10)->create();
+        $category = Category::factory()->count(10)->create();
+
     }
 }
