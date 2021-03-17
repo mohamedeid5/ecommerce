@@ -4,6 +4,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
 
-    return LaravelLocalization::getSupportedLocales();
+    return App\Models\Category::parent()->count();
 
 });

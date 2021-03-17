@@ -1,6 +1,9 @@
 <?php
 
 
+define('PAGINATION_NUMBER', 7);
+
+
 if (!function_exists('getFolder')) {
     $dir = '';
     function getFolder() {
