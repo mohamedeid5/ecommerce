@@ -39,16 +39,16 @@
             </li>
 
             <li class="nav-item"><a href=""><i class="la la-group"></i>
-                    <span class="menu-title" data-i18n="nav.dash.main">{{ __('general.sub_categories') }}</span>
+                    <span class="menu-title" data-i18n="nav.dash.main">{{ __('admin/brands.brands') }}</span>
                     <span
                         class="badge badge badge-danger badge-pill float-right mr-2">400</span>
                 </a>
                 <ul class="menu-content">
-                    <li class="active"><a class="menu-item" href=""
-                                          data-i18n="nav.dash.ecommerce">{{ __('general.show_all_categories') }}</a>
+                    <li class="active"><a class="menu-item" href="{{ route('admin.brands.index') }}"
+                                          data-i18n="nav.dash.ecommerce">{{ __('admin/brands.show_all_brands') }}</a>
                     </li>
-                    <li><a class="menu-item" href="" data-i18n="nav.dash.crypto">
-                     {{ __('general.add_new_sub_category') }} </a>
+                    <li><a class="menu-item" href="{{ route('admin.brands.create') }}" data-i18n="nav.dash.crypto">
+                     {{ __('admin/brands.add_new_brand') }} </a>
                     </li>
                 </ul>
             </li>

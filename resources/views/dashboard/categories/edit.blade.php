@@ -43,6 +43,7 @@
                         @enderror
                     </div>
 
+
                     <div class="form-group">
                         <label for="category_id">Category</label>
                         <select class="form-control" name="parent_id">

@@ -1,0 +1,2 @@
+<?php
+PAGINATION_NUMBER
