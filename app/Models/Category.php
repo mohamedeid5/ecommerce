@@ -72,6 +72,10 @@ class Category extends Model
         return $this->is_active == 1 ? __('general.active') : __('general.not_active');
     }
 
+    public function category_parent() {
+        return $this->belongsTo(Category::class, 'parent_id');
+    }
+
     public function children() {
         return $this->hasMany(Category::class, 'parent_id');
     }

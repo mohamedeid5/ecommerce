@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\Auth\LoginController;
+use App\Http\Controllers\Dashboard\BrandsController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\SettingsController;
@@ -46,9 +47,11 @@ Route::group([
 
         /** categories routes */
 
-
         Route::resource('categories', CategoryController::class);
 
+        /** brands routes */
+
+        Route::resource('brands', BrandsController::class);
 
 
     }); // end admin routes

@@ -10,5 +10,6 @@ return [
     'update' => 'تحديث',
     'active' => 'مفعل',
     'not_active' => 'غير مفعل',
-    'save' => 'حفظ'
+    'save' => 'حفظ',
+    'image' => 'الصورة'
 ];
