@@ -41,7 +41,7 @@
             <li class="nav-item"><a href=""><i class="la la-group"></i>
                     <span class="menu-title" data-i18n="nav.dash.main">{{ __('admin/brands.brands') }}</span>
                     <span
-                        class="badge badge badge-danger badge-pill float-right mr-2">400</span>
+                        class="badge badge badge-danger badge-pill float-right mr-2">{{ \App\Models\Brand::count() }}</span>
                 </a>
                 <ul class="menu-content">
                     <li class="active"><a class="menu-item" href="{{ route('admin.brands.index') }}"
@@ -49,6 +49,21 @@
                     </li>
                     <li><a class="menu-item" href="{{ route('admin.brands.create') }}" data-i18n="nav.dash.crypto">
                      {{ __('admin/brands.add_new_brand') }} </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item"><a href=""><i class="la la-group"></i>
+                    <span class="menu-title" data-i18n="nav.dash.main">{{ __('admin/tags.tags') }}</span>
+                    <span
+                        class="badge badge badge-danger badge-pill float-right mr-2">{{ \App\Models\Tag::count() }}</span>
+                </a>
+                <ul class="menu-content">
+                    <li class="active"><a class="menu-item" href="{{ route('admin.tags.index') }}"
+                                          data-i18n="nav.dash.ecommerce">{{ __('admin/tags.show_all_tags') }}</a>
+                    </li>
+                    <li><a class="menu-item" href="{{ route('admin.tags.create') }}" data-i18n="nav.dash.crypto">
+                            {{ __('admin/tags.add_new_tag') }} </a>
                     </li>
                 </ul>
             </li>

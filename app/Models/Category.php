@@ -65,20 +65,29 @@ class Category extends Model
     /**
      * Method getActive
      *
-     * @return void
+     * @return string
      */
     public function getActive()
     {
         return $this->is_active == 1 ? __('general.active') : __('general.not_active');
     }
 
+    /**
+     * Method category_parent
+     *
+     * @return void
+     */
     public function category_parent() {
         return $this->belongsTo(Category::class, 'parent_id');
     }
 
+    /**
+     * Method children
+     *
+     * @return void
+     */
     public function children() {
         return $this->hasMany(Category::class, 'parent_id');
     }
-
 
 }
