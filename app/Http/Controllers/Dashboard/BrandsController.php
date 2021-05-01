@@ -106,21 +106,31 @@ class BrandsController extends Controller
      */
     public function update(BrandsRequest $request, $id)
     {
-        $brand = $this->getBrandById($id);
 
-        $brand->update($request->except('_token'));
+        DB::transaction(function () use ($request, $id) {
 
-        $brand->slug = Str::slug($request->slug, '-');
+            $brand = $this->getBrandById($id);
 
-        $brand->name = $request->name;
+            $brand->update($request->except(['_token', 'image']));
 
-        if($request->hasFile('image')) {
+            if($request->hasFile('image')) {
 
-            $brand->image = Upload::upload($request->image, 'admin/images/brands');
+                $fileName = Upload::upload($request->image, 'admin/images/brands');
 
-        }
+                $this->deleteOldImage($brand->image);
 
-        $brand->save();
+                Storage::delete($brand->image);
+
+                $brand->image = $fileName;
+
+            }
+
+            $brand->slug = Str::slug($request->slug, '-');
+
+            $brand->name = $request->name;
+
+            $brand->save();
+        });
 
         return redirect()->route('admin.brands.index')->with(['success'=>'brand updated successfully']);
     }
@@ -137,6 +147,8 @@ class BrandsController extends Controller
 
         $brand->delete();
 
+        $this->deleteOldImage($brand->image);
+
         return redirect()->route('admin.brands.index');
     }
 
@@ -149,7 +161,7 @@ class BrandsController extends Controller
      */
     private function getBrandById($id)
     {
-        return Brand::find($id);
+        return Brand::findOrFail($id);
 
     }
 
@@ -162,9 +174,9 @@ class BrandsController extends Controller
      */
     private function deleteOldImage($path)
     {
-        if(File::exists($path)) {
+        if(File::exists('storage/' . $path)) {
 
-            File::delete($path);
+            Storage::delete($path);
         }
     }
 }

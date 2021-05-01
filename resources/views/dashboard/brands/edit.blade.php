@@ -13,7 +13,7 @@
                     @method('put')
                     @include('dashboard.includes.alerts.errors')
                     @include('dashboard.includes.alerts.success')
-                    <input type="hidden" name="category_id" value="{{ $brand->id }}">
+                    <input type="hidden" name="id" value="{{ $brand->id }}">
                     <div class="form-group">
                         <label for="">{{ __('admin/brands.brand_name') }}</label>
                         <input type="text" name="name" value="{{ old('name', $brand->name) }}" class="form-control">

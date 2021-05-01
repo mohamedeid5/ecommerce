@@ -40,16 +40,17 @@ class Brand extends Model
      *
      * @var array
      */
-    protected $translatedAttributes = ['name'];
+    protected array $translatedAttributes = ['name'];
 
     /**
      * Method getImageAttribute
      *
      * @param $val
      *
-     * @return void
+     * @return string
      */
-    public function getImageAttribute($val) {
+    public function getImageAttribute($val): string
+    {
 
         return $val !== null ? 'admin/images/brands/' . $val : '';
 

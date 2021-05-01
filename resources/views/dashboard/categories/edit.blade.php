@@ -51,16 +51,15 @@
 
                             @foreach ($categories as $cat)
                                 <option value="{{ $cat->id }}"
-                                    {{ $cat->id == old('parent_id', $category->id) ? 'selected' : '' }}
                                     >{{ $cat->name }}</option>
                                 @if ($cat->children)
                                     @foreach ($cat->children as $child)
                                         <option value="{{ $child->id }}"
-                                            {{ $child->id == old('parent_id', $category->id) ? 'selected' : '' }}
                                             >&nbsp;&nbsp;{{ $child->name }}</option>
                                     @endforeach
                                 @endif
                             @endforeach
+
                         </select>
                     </div>
 

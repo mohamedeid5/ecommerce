@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\SettingsController;
 use App\Http\Controllers\Dashboard\CategoryController;
+use App\Http\Controllers\Dashboard\TagsController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -52,6 +53,10 @@ Route::group([
         /** brands routes */
 
         Route::resource('brands', BrandsController::class);
+
+        /** tags routes */
+
+        Route::resource('tags', TagsController::class);
 
 
     }); // end admin routes

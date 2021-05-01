@@ -17,10 +17,8 @@ class CreateBrandTranslationsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('locale');
-            $table->unsignedBigInteger('brand_id');
+            $table->foreignId('brand_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
-
-            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('CASCADE');
         });
     }
 
