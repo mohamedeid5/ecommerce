@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\SettingsController;
 use App\Http\Controllers\Dashboard\CategoryController;
+use App\Http\Controllers\Dashboard\ProductsController;
 use App\Http\Controllers\Dashboard\TagsController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -39,6 +40,7 @@ Route::group([
         }); // end settings routes
 
         // profile routes
+
         Route::group(['prefix' => 'profile'], function(){
 
             Route::get('edit', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -57,6 +59,18 @@ Route::group([
         /** tags routes */
 
         Route::resource('tags', TagsController::class);
+
+        /** products routes */
+
+        Route::get('products/general-information', [ProductsController::class, 'create'])->name('products.general.create');
+
+        Route::post('products/general-information', [ProductsController::class, 'store'])->name('products.general.store');
+
+        Route::resource('products', ProductsController::class);
+
+
+
+
 
 
     }); // end admin routes

@@ -26,6 +26,7 @@ class Category extends Model
      */
     public $translatedAttributes = ['name'];
 
+
     /**
      * casts
      *
@@ -60,6 +61,11 @@ class Category extends Model
     public function scopeParent($query)
     {
         return $query->whereNull('parent_id');
+    }
+
+    public function scopeIsActive($query)
+    {
+        return $query->where('is_active', 1);
     }
 
     /**
