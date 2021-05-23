@@ -70,15 +70,19 @@
 @include('dashboard.includes.sidebar')
 
 <!-- /////////////////////////////////////////////////////////////////////////////////////-->
-<div class="app-content content">
-@yield('content')
+<div class="app-content" style="margin-left: 260px">
+    <div class="content-wrapper">
+        <div class="content-header row">
+        </div>
+        <div class="content-body">
+             @yield('content')
+        </div>
+    </div>
 </div>
 <!-- ////////////////////////////////////////////////////////////////////////////-->
 @include('dashboard.includes.footer')
 
 
-@notify_js
-@notify_render
 
 <!-- BEGIN VENDOR JS-->
 <script src="{{asset('assets/admin/vendors/js/vendors.min.js')}}" type="text/javascript"></script>

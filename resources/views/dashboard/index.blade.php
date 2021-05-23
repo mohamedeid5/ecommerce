@@ -9,10 +9,6 @@
 @section('content')
 
 
-        <div class="content-wrapper">
-            <div class="content-header row">
-            </div>
-            <div class="content-body">
                 <div id="crypto-stats-3" class="row">
                     <div class="col-xl-3 col-12">
                         <div class="card crypto-card-3 pull-up">
@@ -183,8 +179,7 @@
                     </div>
                 </div>
                 <!--/ Sell Orders & Buy Order -->
-            </div>
-        </div>
+
 
 
 

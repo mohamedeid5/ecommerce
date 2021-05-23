@@ -17,6 +17,13 @@ class Brand extends Model
      */
     protected $with = ['translations'];
 
+     /**
+     * hidden
+     *
+     * @var array
+     */
+    protected $hidden = ['translations'];
+
     /**
      * fillable
      *
@@ -56,5 +63,9 @@ class Brand extends Model
 
     }
 
+    public function scopeIsActive($query)
+    {
+        return $query->where('is_active', 1);
+    }
 
 }

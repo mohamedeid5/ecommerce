@@ -15,6 +15,13 @@ class Tag extends Model
      */
     protected $with = ['translations'];
 
+     /**
+     * hidden
+     *
+     * @var array
+     */
+    protected $hidden = ['translations'];
+
     /**
      * @var string[]
      */
@@ -25,5 +32,6 @@ class Tag extends Model
      * @var array|string[]
      */
     protected array $translatedAttributes = ['name'];
+
 
 }
