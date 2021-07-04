@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\GeneralProductRequest;
+use App\Http\Requests\Admin\ProductPriceRequest;
 use App\Models\Product;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductsController extends Controller
 {
@@ -21,7 +23,7 @@ class ProductsController extends Controller
     {
         $products = Product::paginate(PAGINATION_NUMBER);
 
-        return view('dashboard.products.index', compact('products'));
+        return view('dashboard.products.general.index', compact('products'));
     }
 
     /**
@@ -50,7 +52,24 @@ class ProductsController extends Controller
      */
     public function store(GeneralProductRequest $request)
     {
-        return $request;
+        DB::transaction(function () use ($request) {
+
+            $product = Product::create($request->only('slug', 'brand_id', 'is_active'));
+
+            // save translations
+            $product->name = $request->name;
+            $product->description = $request->description;
+            $product->short_description = $request->short_description;
+            $product->save();
+
+            //save product categories
+            $product->categories()->attach($request->categories);
+
+            // save product tags
+            $product->tags()->attach($request->tags);
+        });
+
+        return redirect()->route('admin.products.index');
     }
 
     /**
@@ -96,5 +115,15 @@ class ProductsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function price($id)
+    {
+        return view('dashboard.products.price.create', compact('id'));
+    }
+
+    public function storePrice(ProductPriceRequest $request)
+    {
+        return $request;
     }
 }
