@@ -116,14 +116,30 @@ class ProductsController extends Controller
     {
         //
     }
+    
+
 
     public function price($id)
     {
         return view('dashboard.products.price.create', compact('id'));
     }
 
+
     public function storePrice(ProductPriceRequest $request)
     {
-        return $request;
+            
+        Product::where('id' ,$request->product_id)->update($request->except('_token', '_method', 'product_id'));
+
+        return redirect()->route('admin.products.index')->with(['success', 'product updated successfully']);
+        
     }
 }
+
+
+
+
+
+
+
+
+

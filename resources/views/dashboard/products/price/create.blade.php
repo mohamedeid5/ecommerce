@@ -19,24 +19,24 @@
 
                         <div class="form-group">
                             <label for="">{{ __('admin/products.product_price') }}</label>
-                            <input type="number" name="product_price" value="{{ old('product_price') }}" class="form-control">
+                            <input type="number" name="price" value="{{ old('price') }}" class="form-control">
                         </div> <!-- end name  -->
-                        @error('product_price')
+                        @error('price')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
 
                         <div class="form-group">
                             <label for="">{{ __('admin/products.special_price') }}</label>
-                            <input type="number" name="special_price" value="{{ old('special_price') }}" class="form-control">
+                            <input type="number" name="speical_price" value="{{ old('special_price') }}" class="form-control">
                         </div> <!-- end name  -->
-                        @error('special_price')
+                        @error('speical_price')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
 
                         <div class="form-group">
                             <label for="">{{ __('admin/products.speical_price_type') }}</label>
                             <select name="speical_price_type" id="" class="select form-control">
-                                <option value="precent">{{ __('admin/products.precent') }}</option>
+                                <option value="percent">{{ __('admin/products.precent') }}</option>
                                 <option value="fixed">{{ __('admin/products.fixed') }}</option>
                             </select>
                         </div> <!-- end name  -->

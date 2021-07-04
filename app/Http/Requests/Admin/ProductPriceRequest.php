@@ -24,7 +24,13 @@ class ProductPriceRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'price'                 => 'required|min:0|numeric',
+            'product_id'            => 'required|exists:products,id',
+            'speical_price'         => 'nullable|numeric',
+            'speical_price_type'    => 'required_with:speical_price|in:fixed,percent',
+            'speical_price_start'   => 'required_with:speical_price|date_format:Y-m-d',
+            'speical_price_end'     => 'required_with:speical_price|date_format:Y-m-d',
+
         ];
     }
 }
