@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\GeneralProductRequest;
 use App\Http\Requests\Admin\ProductPriceRequest;
+use App\Http\Requests\Admin\StockRequest;
 use App\Models\Product;
 use App\Models\Brand;
 use App\Models\Category;
@@ -116,22 +117,56 @@ class ProductsController extends Controller
     {
         //
     }
-    
 
 
+    /**
+     * Method price
+     *
+     * @param $id
+     *
+     * @return void
+     */
     public function price($id)
     {
         return view('dashboard.products.price.create', compact('id'));
     }
 
 
+    /**
+     * Method storePrice
+     *
+     * @param ProductPriceRequest
+     *
+     * @return void
+     */
     public function storePrice(ProductPriceRequest $request)
     {
-            
+
         Product::where('id' ,$request->product_id)->update($request->except('_token', '_method', 'product_id'));
 
         return redirect()->route('admin.products.index')->with(['success', 'product updated successfully']);
-        
+
+    }
+
+    /**
+     * Method stock
+     *
+     * @param $id
+     *
+     * @return void
+     */
+    public function stock($id)
+    {
+        $product = Product::whereId($id)->first();
+
+        return view('dashboard.products.stock.create', compact('id', 'product'));
+    }
+
+    public function storeStock(StockRequest $request)
+    {
+        Product::whereId($request->product_id)->update($request->except(['_token', '_method', 'product_id']));
+
+        return redirect()->route('admin.products.index')->with(['success' => 'updated successfuly']);
     }
 }
 

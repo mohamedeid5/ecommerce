@@ -27,7 +27,10 @@
             <td>{{ $product->getActive() }}</td>
             <td>{{ $product->created_at }}</td>
             <td>{{ $product->updated_at }}</td>
+
             <td>
+                <a href="{{ route('admin.products.price', $product->id) }}" class="btn btn-primary">price</a>
+                <a href="{{ route('admin.products.stock', $product->id) }}" class="btn btn-primary">inventory</a>
                 <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-primary">edit</a>
                 <form action="{{ route('admin.products.destroy', $product->id) }}" method="post">
                     @csrf
