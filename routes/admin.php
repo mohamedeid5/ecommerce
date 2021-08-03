@@ -62,14 +62,26 @@ Route::group([
 
         /** products routes */
 
-        Route::get('products/general-information', [ProductsController::class, 'create'])->name('products.general.create');
+        Route::prefix('products')->group(function () {
 
-        Route::post('products/general-information', [ProductsController::class, 'store'])->name('products.general.store');
+            // general info
+
+            Route::get('general-information', [ProductsController::class, 'create'])->name('products.general.create');
+            Route::post('general-information', [ProductsController::class, 'store'])->name('products.general.store');
+
+            // price
+            Route::get('price/{id}', [ProductsController::class, 'price'])->name('products.price');
+            Route::post('price', [ProductsController::class, 'storePrice'])->name('products.price.store');
+
+            // stock
+            Route::get('stock/{id}', [ProductsController::class, 'stock'])->name('products.stock');
+            Route::post('stock', [ProductsController::class, 'storeStock'])->name('products.stock.store');
+
+        });
 
         Route::resource('products', ProductsController::class);
 
-
-
+        //
 
 
 
