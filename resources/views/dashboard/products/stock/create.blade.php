@@ -70,6 +70,7 @@
 <script>
 
 
+
     if($('#manage_stock').find(':selected').val() == 1) {
         $('#qty').show();
     }
