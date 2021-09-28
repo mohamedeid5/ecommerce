@@ -73,19 +73,44 @@ class Product extends Model
 
     protected $translatedAttributes = ['name', 'description', 'short_description'];
 
+    /**
+     * Method brand
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function brand()
     {
         return $this->belongsTo(Brand::class)->withDefault();
     }
 
+    /**
+     * Method categories
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'product_categories');
     }
 
+    /**
+     * Method tags
+     *
+     * @return void
+     */
     public function tags()
     {
-    return $this->belongsToMany(Tag::class, 'product_tags');
+        return $this->belongsToMany(Tag::class, 'product_tags');
+    }
+
+    /**
+     * Method images
+     *
+     * @return void
+     */
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable');
     }
 
      /**
@@ -97,5 +122,7 @@ class Product extends Model
     {
         return $this->is_active == 1 ? __('general.active') : __('general.not_active');
     }
+
+
 
 }

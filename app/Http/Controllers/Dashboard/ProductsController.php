@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\GeneralProductRequest;
-use App\Http\Requests\Admin\ProductPriceRequest;
-use App\Http\Requests\Admin\StockRequest;
-use App\Models\Product;
-use App\Models\Brand;
-use App\Models\Category;
 use App\Models\Tag;
+use App\Models\Brand;
+use App\Models\Image;
+use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Upload;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\StockRequest;
+use App\Http\Requests\Admin\ImagesRequest;
+use App\Http\Requests\Admin\ProductPriceRequest;
+use App\Http\Requests\Admin\GeneralProductRequest;
 
 class ProductsController extends Controller
 {
@@ -128,7 +131,9 @@ class ProductsController extends Controller
      */
     public function price($id)
     {
-        return view('dashboard.products.price.create', compact('id'));
+        $product = Product::find($id);
+
+        return view('dashboard.products.price.create', compact('id', 'product'));
     }
 
 
@@ -167,6 +172,53 @@ class ProductsController extends Controller
         Product::whereId($request->product_id)->update($request->except(['_token', '_method', 'product_id']));
 
         return redirect()->route('admin.products.index')->with(['success' => 'updated successfuly']);
+    }
+
+    /**
+     * Method addImages
+     *
+     * @param $id $id [explicite description]
+     *
+     * @return void
+     */
+    public function addImages($id)
+    {
+        $product = Product::find($id);
+
+        return view('dashboard.products.images.create', compact('id', 'product'));
+    }
+
+
+   // save images to folder
+    public function storeImages(Request $request)
+    {
+        $file = $request->file('dzfile');
+
+        $fileName = Upload::upload($file, 'admin/images/products/' . $request->product_id);
+
+        return response()->json([
+            'name' => $fileName,
+            'original_name' => $file->getClientOriginalName(),
+        ]);
+
+    }
+
+  // save images to database
+  public function storeImagesDB(ImagesRequest $request)
+  {
+
+        if ($request->has('images')) {
+
+            foreach ($request->images as $image) {
+                Image::create([
+                    'imageable_id'   => $request->product_id,
+                    'imageable_type' => 'App\Models\Product',
+                    'image' => $image,
+                ]);
+            }
+        }
+
+        return redirect()->route('admin.products.index');
     }
 }
 

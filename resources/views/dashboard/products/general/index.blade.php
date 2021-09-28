@@ -31,6 +31,7 @@
             <td>
                 <a href="{{ route('admin.products.price', $product->id) }}" class="btn btn-primary">price</a>
                 <a href="{{ route('admin.products.stock', $product->id) }}" class="btn btn-primary">inventory</a>
+                <a href="{{ route('admin.products.images', $product->id) }}" class="btn btn-primary">images</a>
                 <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-primary">edit</a>
                 <form action="{{ route('admin.products.destroy', $product->id) }}" method="post">
                     @csrf

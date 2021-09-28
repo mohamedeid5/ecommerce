@@ -31,10 +31,10 @@
                     <div class="form-group">
                         <label for="">{{ __('admin/brands.is_active') }}</label>
                         <select name="is_active" id="" class="custom-select">
-                            <option value="1" {{ $brand->is_active == 1 ? 'selected' : '' }}>
+                            <option value="1" {{ old('is_active', $brand->is_active) == 1 ? 'selected' : '' }}>
                                 {{ __('admin/brands.active') }}
                             </option>
-                            <option value="0" {{ $brand->is_active == 0 ? 'selected' : '' }}>
+                            <option value="0" {{ ld('is_active', $brand->is_active)== 0 ? 'selected' : '' }}>
                                 {{ __('admin/brands.not_active') }}
                             </option>
                         </select>

@@ -8,6 +8,7 @@ use App\Http\Controllers\Dashboard\SettingsController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\ProductsController;
 use App\Http\Controllers\Dashboard\TagsController;
+use App\Http\Controllers\Dashboard\VariationsController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -62,6 +63,8 @@ Route::group([
 
         /** products routes */
 
+        Route::resource('products', ProductsController::class);
+
         Route::prefix('products')->group(function () {
 
             // general info
@@ -77,11 +80,17 @@ Route::group([
             Route::get('stock/{id}', [ProductsController::class, 'stock'])->name('products.stock');
             Route::post('stock', [ProductsController::class, 'storeStock'])->name('products.stock.store');
 
+            // images
+            Route::get('images/{id}', [ProductsController::class, 'addImages'])->name('products.images');
+            Route::post('images', [ProductsController::class, 'storeImages'])->name('products.images.store');
+            Route::post('images/db', [ProductsController::class, 'storeImagesDB'])->name('products.images.store.db');
+
+
         });
 
-        Route::resource('products', ProductsController::class);
 
-        //
+        // variations
+        Route::resource('variations', VariationsController::class);
 
 
 

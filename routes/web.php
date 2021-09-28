@@ -1,9 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Models\Product;
 Route::get('/test', function () {
 
-    return App\Models\Category::parent()->count();
+    $product = Product::find(1);
+
+    return $product->images();
 
 });

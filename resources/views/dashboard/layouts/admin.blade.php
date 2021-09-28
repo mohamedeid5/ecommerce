@@ -51,6 +51,7 @@
     <!-- END Page Level CSS-->
     <!-- BEGIN Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/' . getFolder() . '/' . getFile() . '.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/admin/js/dist/dropzone.css') }}">
     <!-- END Custom CSS-->
     @notify_css
     @stack('style')
@@ -84,6 +85,7 @@
 
 
 
+<script src="{{ asset('assets/admin/js/dist/dropzone.js') }}"></script>
 <!-- BEGIN VENDOR JS-->
 <script src="{{asset('assets/admin/vendors/js/vendors.min.js')}}" type="text/javascript"></script>
 <!-- BEGIN VENDOR JS-->
@@ -178,6 +180,8 @@
         meridians: true,setCurrentTime: false
     });
 </script>
+
 @stack('js')
+
 </body>
 </html>
