@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductProductImagesTable extends Migration
+class AddPriceColumnOptionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateProductProductImagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_images', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
-            $table->string('image');
-            $table->timestamps();
+        Schema::table('options', function (Blueprint $table) {
+            $table->decimal('price')->after('variation_id');
         });
     }
 
@@ -28,6 +25,8 @@ class CreateProductProductImagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_images');
+        Schema::table('options', function (Blueprint $table) {
+            $table->dropColumn('price');
+        });
     }
 }

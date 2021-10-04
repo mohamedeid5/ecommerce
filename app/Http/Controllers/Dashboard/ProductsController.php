@@ -25,7 +25,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(PAGINATION_NUMBER);
+        $products = Product::orderBy('id', 'DESC')->paginate(PAGINATION_NUMBER);
 
         return view('dashboard.products.general.index', compact('products'));
     }
@@ -59,6 +59,8 @@ class ProductsController extends Controller
         DB::transaction(function () use ($request) {
 
             $product = Product::create($request->only('slug', 'brand_id', 'is_active'));
+
+
 
             // save translations
             $product->name = $request->name;
@@ -95,7 +97,17 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        return view('dashboard.products.edit');
+        $product = Product::find($id);
+
+        $data = [];
+
+        $data['brands'] = Brand::isActive()->select('id')->with('translations')->get();
+
+        $data['tags']   = Tag::select('id')->get();
+
+        $data['categories'] = Category::isActive()->select('id')->get();
+
+        return view('dashboard.products.general.edit', compact('product', 'data'));
     }
 
     /**
@@ -105,9 +117,31 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(GeneralProductRequest $request, $id)
     {
-        //
+
+        DB::transaction(function () use ($request, $id) {
+
+            $product = Product::find($id);
+
+            $product->update($request->only('slug', 'brand_id', 'is_active'));
+
+            // update translations
+            $product->name = $request->name;
+            $product->description = $request->description;
+            $product->short_description = $request->short_description;
+            $product->save();
+
+            //update product categories
+            $product->categories()->detach($request->categories);
+            $product->categories()->attach($request->categories);
+
+            // update product tags
+            $product->tags()->detach($request->tags);
+            $product->tags()->attach($request->tags);
+        });
+
+        return redirect()->back();
     }
 
     /**

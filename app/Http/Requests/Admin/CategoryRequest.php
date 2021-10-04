@@ -25,7 +25,7 @@ class CategoryRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'slug' => 'required|unique:categories,slug,' . request('category_id'),
+            'slug' => 'required|unique:categories,slug,' . $this->category_id,
             'is_active' => 'required',
             'parent_id' => 'sometimes'
         ];

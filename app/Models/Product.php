@@ -6,6 +6,7 @@ use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Product extends Model
 {
@@ -73,6 +74,23 @@ class Product extends Model
 
     protected $translatedAttributes = ['name', 'description', 'short_description'];
 
+    public function setSlugAttribute($value)
+    {
+        $this->attributes['slug'] = Str::slug($value, '-');
+    }
+
+    /**
+     * Method scopeActive
+     *
+     * @param $query $query [explicite description]
+     *
+     * @return void
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', 1);
+    }
+
     /**
      * Method brand
      *
@@ -123,6 +141,9 @@ class Product extends Model
         return $this->is_active == 1 ? __('general.active') : __('general.not_active');
     }
 
-
+    public function options()
+    {
+        return $this->hasMany(Option::class);
+    }
 
 }

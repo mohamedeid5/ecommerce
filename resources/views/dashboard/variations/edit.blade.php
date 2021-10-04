@@ -13,6 +13,9 @@
                     @method('PUT')
                     @include('dashboard.includes.alerts.errors')
                     @include('dashboard.includes.alerts.success')
+
+                    <input type="hidden" name="variation_id" value="{{ $variation->id }}">
+
                     <div class="form-group">
                         <label for="">{{ __('admin/variation.variation_name') }}</label>
                         <input type="text" name="name" value="{{ old('name', $variation->name) }}" class="form-control">

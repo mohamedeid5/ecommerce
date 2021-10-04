@@ -6,7 +6,7 @@
 
     <h2>Variations</h2>
 
-    <a href="{{ route('admin.variations.create') }}" class="btn btn-info">Add Brand</a>
+    <a href="{{ route('admin.variations.create') }}" class="btn btn-info">Add Varition</a>
 
     <table class="table">
         <thead>
