@@ -26,7 +26,7 @@ class GeneralProductRequest extends FormRequest
         return [
             'name' => 'required|max:100',
             'is_active' => 'required',
-            'slug' => 'required|unique:products,slug,'.$this->id,
+            'slug' => 'required|unique:products,slug,'.request()->product_id,',product_id',
             'description' => 'required',
             'short_description' => 'nullable|max:500',
             'categories' => 'required|array|min:1|',

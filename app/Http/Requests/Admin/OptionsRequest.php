@@ -4,9 +4,8 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class VariationsRequest extends FormRequest
+class OptionsRequest extends FormRequest
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -25,7 +24,10 @@ class VariationsRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:variation_translations,name,'.$this->variation_id.',variation_id',
+            'name' => 'required|max:100',
+            'price' => 'required|numeric',
+            'product_id' => 'required|exists:products,id',
+            'variation_id' => 'required|exists:variations,id',
             'is_active' => 'required',
         ];
     }

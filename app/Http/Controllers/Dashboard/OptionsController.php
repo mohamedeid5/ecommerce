@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Admin\OptionsRequest;
+use App\Models\Option;
+use App\Models\Product;
 use App\Models\Variation;
-use App\Http\Requests\Admin\VariationsRequest;
+use Illuminate\Http\Request;
 
-class VariationsController extends Controller
+class OptionsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +18,9 @@ class VariationsController extends Controller
      */
     public function index()
     {
-        $variations = Variation::orderBy('id', 'DESC')->paginate(PAGINATION_NUMBER);
+        $options = Option::orderBy('id', 'DESC')->paginate(PAGINATION_NUMBER);
 
-        return view('dashboard.variations.index', compact('variations'));
+        return view('dashboard.options.index', compact('options'));
     }
 
     /**
@@ -28,7 +30,13 @@ class VariationsController extends Controller
      */
     public function create()
     {
-        return view('dashboard.variations.create');
+        $data = [];
+
+        $data['products'] = Product::active()->select('id')->get();
+
+        $data['variations'] = Variation::active()->select('id')->get();
+
+        return view('dashboard.options.create', compact('data'));
     }
 
     /**
@@ -37,17 +45,17 @@ class VariationsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(VariationsRequest $request)
+    public function store(OptionsRequest $request)
     {
+        // create option
 
-        $variations = Variation::create($request->only('is_active'));
+       $option = Option::create($request->only('product_id', 'variation_id', 'price'));
 
-        $variations->name = $request->name;
+       $option->name = $request->name;
 
-        $variations->save();
+       $option->save();
 
-        return redirect()->route('admin.variations.index');
-
+       return redirect()->route('admin.options.index');
     }
 
     /**
@@ -69,9 +77,7 @@ class VariationsController extends Controller
      */
     public function edit($id)
     {
-        $variation = Variation::find($id);
-
-        return view('dashboard.variations.edit', compact('variation'));
+        //
     }
 
     /**
@@ -81,20 +87,9 @@ class VariationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(VariationsRequest $request, $id)
+    public function update(Request $request, $id)
     {
-
-        $variation = Variation::find($id);
-
-        $variation->name = $request->name;
-
-        $variation->is_active = $request->is_active;
-
-        $variation->save();
-
-        return redirect()->back();
-
-
+        //
     }
 
     /**

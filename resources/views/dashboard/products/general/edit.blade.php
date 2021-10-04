@@ -1,23 +1,25 @@
 @extends('dashboard.layouts.admin')
 @section('title')
-    add new product
+    edit product
 @endsection
 
 @section('content')
     <div class="container">
         <div class="card">
-            <h2 class="card-header">add new product</h5>
+            <h2 class="card-header">edit product</h5>
             <div class="card-content">
                 <div class="card-body">
-                    <form method="post" action="{{ route('admin.products.store') }}">
+                    <form method="post" action="{{ route('admin.products.update', $product->id) }}">
                         @csrf
-                        @method('POST')
+                        @method('PUT')
                         @include('dashboard.includes.alerts.errors')
                         @include('dashboard.includes.alerts.success')
 
+                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+
                         <div class="form-group">
                             <label for="">{{ __('admin/products.product_name') }}</label>
-                            <input type="text" name="name" value="{{ old('name') }}" class="form-control">
+                            <input type="text" name="name" value="{{ old('name', $product->name) }}" class="form-control">
                         </div> <!-- end name  -->
                         @error('name')
                             <span class="text-danger">{{ $message }}</span>
@@ -25,7 +27,7 @@
 
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1">Description</label>
-                            <textarea class="form-control" name="description" value="{{ old('description') }}" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3">{{ old('description', $product->description) }}</textarea>
                         </div> <!-- end description -->
                         @error('description')
                                 <span class="text-danger">{{ $message }}</span>
@@ -33,7 +35,7 @@
 
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1">Short Description</label>
-                            <textarea class="form-control" name="short_description" value="{{ old('short_description') }}" id="exampleFormControlTextarea1" rows="2"></textarea>
+                            <textarea class="form-control" name="short_description" id="exampleFormControlTextarea1" rows="2">{{ old('short_description', $product->short_description) }}</textarea>
                         </div>  <!-- end short description -->
                         @error('short_description')
                             <span class="text-danger">{{ $message }}</span>
@@ -41,7 +43,7 @@
 
                         <div class="form-group">
                             <label for="">{{ __('admin/products.slug') }}</label>
-                            <input type="text" name="slug" value="{{ old('slug') }}" class="form-control">
+                            <input type="text" name="slug" value="{{ old('slug', $product->slug) }}" class="form-control">
                         </div> <!-- end slug -->
                         @error('slug')
                             <span class="text-danger">{{ $message }}</span>
@@ -50,10 +52,10 @@
                         <div class="form-group">
                             <label for="">{{ __('general.active') }}</label>
                             <select name="is_active" id="" class="custom-select">
-                                <option value="1" {{ old('is_active') == 1 ? 'selected' : '' }}>
+                                <option value="1" {{ old('is_active', $product->is_active) == 1 ? 'selected' : '' }}>
                                     {{ __('general.active') }}
                                 </option>
-                                <option value="0" {{ old('is_active') == 0 ? 'selected' : '' }}>
+                                <option value="0" {{ old('is_active', $product->is_active) == 0 ? 'selected' : '' }}>
                                     {{ __('general.not_active') }}
                                 </option>
                             </select> <!-- end active -->
@@ -69,15 +71,16 @@
 
                                     @foreach ($data['categories'] as $cat)
                                         <option value="{{ $cat->id }}"
-                                            {{ !empty(old('categories')) && in_array($cat->id, old('categories')) ? 'selected' : '' }}
-                                            >{{ $cat->name }}</option>
-                                        @if ($cat->children)
-                                            @foreach ($cat->children as $child)
-                                                <option value="{{ $child->id }}"
-                                                    {{ !empty(old('categories')) && in_array($child->id, old('categories')) ? 'selected' : ''}}
-                                                    >&nbsp;&nbsp;{{ $child->name }}</option>
-                                            @endforeach
-                                        @endif
+
+                                            @if(old('categories'))
+                                                {{ in_array($cat->id, old('categories')) ? 'selected' : '' }}
+                                            @else
+                                                {{ in_array($cat->id, $product->categories->pluck('id')->toArray()) ? 'selected' : '' }}
+                                            @endif
+
+                                            >
+                                            {{ $cat->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div> <!-- end categories -->
@@ -87,12 +90,12 @@
 
                             <div class="form-group">
                                 <label for="product_id">Brand</label>
-                                <select class="form-control select2" multiple name="brand_id">
+                                <select class="form-control select2" name="brand_id">
                                     <option value="">Select a Brand</option>
 
                                     @foreach ($data['brands'] as $brand)
                                         <option value="{{ $brand->id }}"
-                                            {{ $brand->id == old('brand_id') ? 'selected' : '' }}
+                                            {{ $brand->id == old('brand_id', $product->brand->id) ? 'selected' : '' }}
                                             >{{ $brand->name }}</option>
                                     @endforeach
                                 </select>
@@ -108,7 +111,12 @@
 
                                     @foreach ($data['tags'] as $tag)
                                         <option value="{{ $tag->id }}"
-                                            {{ !empty(old('tags')) && in_array($tag->id, old('tags')) ? 'selected' : ''}}
+                                            @if(old('tags'))
+                                              {{ in_array($tag->id, old('tags')) ? 'selected' : ''}}
+                                            @else
+                                              {{ in_array($tag->id, $product->tags->pluck('id')->toArray()) ? 'selected' : ''}}
+                                            @endif
+
                                             >{{ $tag->name }}</option>
                                     @endforeach
                                 </select>

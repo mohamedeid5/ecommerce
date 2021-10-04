@@ -6,11 +6,16 @@ use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Variation extends Model
+class Option extends Model
 {
     use HasFactory, Translatable;
 
-    protected $fillable = ['is_active'];
+    /**
+     * fillable
+     *
+     * @var array
+     */
+    protected $fillable = ['product_id', 'variation_id', 'price'];
 
     /**
      * with
@@ -27,15 +32,6 @@ class Variation extends Model
     protected $hidden = ['translations'];
 
     /**
-     * casts
-     *
-     * @var array
-     */
-    protected $casts = [
-        'is_active' => 'boolean',
-    ];
-
-    /**
      * translatedAttributes
      *
      * @var array
@@ -43,20 +39,23 @@ class Variation extends Model
     protected $translatedAttributes = ['name'];
 
     /**
-     * Method scopeActive
-     *
-     * @param $query $query [explicite description]
+     * Method variation
      *
      * @return void
      */
-    public function scopeActive($query)
+    public function variation()
     {
-        return $query->where('is_active', 1);
+        return $this->belongsTo(Variation::class);
     }
 
-    public function options()
+    /**
+     * Method product
+     *
+     * @return void
+     */
+    public function product()
     {
-        return $this->hasMany(Option::class);
+        return $this->belongsTo(Product::class);
     }
 
 }

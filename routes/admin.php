@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\SettingsController;
 use App\Http\Controllers\Dashboard\CategoryController;
+use App\Http\Controllers\Dashboard\OptionsController;
 use App\Http\Controllers\Dashboard\ProductsController;
 use App\Http\Controllers\Dashboard\TagsController;
 use App\Http\Controllers\Dashboard\VariationsController;
@@ -67,11 +68,6 @@ Route::group([
 
         Route::prefix('products')->group(function () {
 
-            // general info
-
-            Route::get('general-information', [ProductsController::class, 'create'])->name('products.general.create');
-            Route::post('general-information', [ProductsController::class, 'store'])->name('products.general.store');
-
             // price
             Route::get('price/{id}', [ProductsController::class, 'price'])->name('products.price');
             Route::post('price', [ProductsController::class, 'storePrice'])->name('products.price.store');
@@ -85,12 +81,13 @@ Route::group([
             Route::post('images', [ProductsController::class, 'storeImages'])->name('products.images.store');
             Route::post('images/db', [ProductsController::class, 'storeImagesDB'])->name('products.images.store.db');
 
-
         });
-
 
         // variations
         Route::resource('variations', VariationsController::class);
+
+        // options
+        Route::resource('options', OptionsController::class);
 
 
 
