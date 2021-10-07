@@ -41,7 +41,7 @@ class ProfileController extends Controller
 
         $admin = auth('admin')->user();
 
-        $admin->update($request->only('name','email', 'password'));
+        $admin->update($request->validated());
 
         return back();
 

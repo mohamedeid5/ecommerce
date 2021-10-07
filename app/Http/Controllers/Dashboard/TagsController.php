@@ -17,7 +17,7 @@ class TagsController extends Controller
      */
     public function index()
     {
-       $tags =  Tag::orderBy('id', 'DESC')->paginate(PAGINATION_NUMBER);
+       $tags =  Tag::latest()->paginate(PAGINATION_NUMBER);
 
         return view('dashboard.tags.index', compact('tags'));
     }
@@ -40,7 +40,7 @@ class TagsController extends Controller
      */
     public function store(TagsRequest $request)
     {
-        Tag::create($request->only(['name', 'slug']));
+        Tag::create($request->validated());
 
         return redirect()->route('admin.tags.index')->with(['success'=>'tag added successfully']);
     }
@@ -57,15 +57,14 @@ class TagsController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Method edit
      *
-     * @param  int  $id
-     * @return \Illuminate\View\View
+     * @param Tag $tag
+     *
+     * @return void
      */
-    public function edit($id)
+    public function edit(Tag $tag)
     {
-        $tag = Tag::find($id);
-
         return view('dashboard.tags.edit', compact('tag'));
     }
 
@@ -81,8 +80,6 @@ class TagsController extends Controller
         $tag = Tag::find($id);
 
         $tag->name = $request->name;
-
-        $tag->slug = Str::slug($request->slug, '-');
 
         $tag->save();
 

@@ -10,9 +10,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
-
-//use function Ramsey\Uuid\v1;
-
 class CategoryController extends Controller
 {
     /**
@@ -50,9 +47,7 @@ class CategoryController extends Controller
 
         DB::transaction(function () use ($request){
 
-            $category = Category::create($request->only(['slug', 'is_active', 'parent_id']));
-
-            $category->slug = Str::slug($request->slug, '-');
+            $category = Category::create($request->validated());
 
             $category->name = $request->name;
 
@@ -79,11 +74,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return View
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        $category = Category::findOrFail($id);
-
-        $categories = Category::orderBy('id', 'DESC')->get();
+        $categories = Category::latest()->get();
 
         return view('dashboard.categories.edit', compact('category', 'categories'));
     }
@@ -102,9 +95,7 @@ class CategoryController extends Controller
 
             $category = $this->getCategoryById($id);
 
-            $category->update($request->only(['is_active', 'parent_id']));
-
-            $category->slug = Str::slug($request->slug, '-');
+            $category->update($request->validated());
 
             $category->name = $request->name;
 
@@ -144,6 +135,6 @@ class CategoryController extends Controller
 
     private function getAllCategories()
     {
-        return Category::parent()->orderBy('id', 'DESC')->paginate(PAGINATION_NUMBER);
+        return Category::parent()->latest()->paginate(PAGINATION_NUMBER);
     }
 }

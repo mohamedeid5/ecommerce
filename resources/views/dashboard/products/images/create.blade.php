@@ -16,7 +16,7 @@
                         @include('dashboard.includes.alerts.errors')
                         @include('dashboard.includes.alerts.success')
 
-                        <input type="hidden" name="product_id" value="{{ $id }}">
+                        <input type="hidden" name="product_id" value="{{ $product->id }}">
 
 
                             @foreach ($product->images as $image)

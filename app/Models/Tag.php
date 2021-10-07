@@ -5,6 +5,7 @@ namespace App\Models;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Tag extends Model
 {
@@ -32,6 +33,11 @@ class Tag extends Model
      * @var array|string[]
      */
     protected array $translatedAttributes = ['name'];
+
+    public function setSlugAttribute($value)
+    {
+        $this->attributes['slug'] = Str::slug($value, '-');
+    }
 
 
 }

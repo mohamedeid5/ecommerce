@@ -34,7 +34,7 @@
                             <option value="1" {{ old('is_active', $brand->is_active) == 1 ? 'selected' : '' }}>
                                 {{ __('admin/brands.active') }}
                             </option>
-                            <option value="0" {{ ld('is_active', $brand->is_active)== 0 ? 'selected' : '' }}>
+                            <option value="0" {{ old('is_active', $brand->is_active)== 0 ? 'selected' : '' }}>
                                 {{ __('admin/brands.not_active') }}
                             </option>
                         </select>

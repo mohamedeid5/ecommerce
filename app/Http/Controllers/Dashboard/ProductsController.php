@@ -25,7 +25,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('id', 'DESC')->paginate(PAGINATION_NUMBER);
+        $products = Product::latest()->paginate(PAGINATION_NUMBER);
 
         return view('dashboard.products.general.index', compact('products'));
     }
@@ -58,9 +58,7 @@ class ProductsController extends Controller
     {
         DB::transaction(function () use ($request) {
 
-            $product = Product::create($request->only('slug', 'brand_id', 'is_active'));
-
-
+            $product = Product::create($request->validated());
 
             // save translations
             $product->name = $request->name;
@@ -90,15 +88,14 @@ class ProductsController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Method edit
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Product $product
+     *
+     * @return void
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        $product = Product::find($id);
-
         $data = [];
 
         $data['brands'] = Brand::isActive()->select('id')->with('translations')->get();
@@ -124,7 +121,7 @@ class ProductsController extends Controller
 
             $product = Product::find($id);
 
-            $product->update($request->only('slug', 'brand_id', 'is_active'));
+            $product->update($request->validated());
 
             // update translations
             $product->name = $request->name;
@@ -181,7 +178,7 @@ class ProductsController extends Controller
     public function storePrice(ProductPriceRequest $request)
     {
 
-        Product::where('id' ,$request->product_id)->update($request->except('_token', '_method', 'product_id'));
+        Product::where('id' ,$request->product_id)->update($request->validated());
 
         return redirect()->route('admin.products.index')->with(['success', 'product updated successfully']);
 
@@ -203,7 +200,7 @@ class ProductsController extends Controller
 
     public function storeStock(StockRequest $request)
     {
-        Product::whereId($request->product_id)->update($request->except(['_token', '_method', 'product_id']));
+        Product::whereId($request->product_id)->update($request->validated());
 
         return redirect()->route('admin.products.index')->with(['success' => 'updated successfuly']);
     }
@@ -215,11 +212,9 @@ class ProductsController extends Controller
      *
      * @return void
      */
-    public function addImages($id)
+    public function addImages(Product $product)
     {
-        $product = Product::find($id);
-
-        return view('dashboard.products.images.create', compact('id', 'product'));
+        return view('dashboard.products.images.create', compact('product'));
     }
 
 
@@ -238,11 +233,9 @@ class ProductsController extends Controller
     }
 
   // save images to database
-  public function storeImagesDB(ImagesRequest $request)
-  {
-
+   public function storeImagesDB(ImagesRequest $request)
+    {
         if ($request->has('images')) {
-
             foreach ($request->images as $image) {
                 Image::create([
                     'imageable_id'   => $request->product_id,
@@ -252,7 +245,8 @@ class ProductsController extends Controller
             }
         }
 
-        return redirect()->route('admin.products.index');
+       return redirect()->route('admin.products.index');
+
     }
 }
 

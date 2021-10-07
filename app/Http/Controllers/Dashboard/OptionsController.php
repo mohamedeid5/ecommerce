@@ -18,7 +18,7 @@ class OptionsController extends Controller
      */
     public function index()
     {
-        $options = Option::orderBy('id', 'DESC')->paginate(PAGINATION_NUMBER);
+        $options = Option::latest()->paginate(PAGINATION_NUMBER);
 
         return view('dashboard.options.index', compact('options'));
     }
@@ -47,9 +47,7 @@ class OptionsController extends Controller
      */
     public function store(OptionsRequest $request)
     {
-        // create option
-
-       $option = Option::create($request->only('product_id', 'variation_id', 'price'));
+       $option = Option::create($request->validated());
 
        $option->name = $request->name;
 
@@ -70,14 +68,22 @@ class OptionsController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Method edit
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Option $option
+     *
+     * @return void
      */
-    public function edit($id)
+    public function edit(Option $option)
     {
-        //
+
+        $data = [];
+
+        $data['products'] = Product::active()->select('id')->get();
+
+        $data['variations'] = Variation::active()->select('id')->get();
+
+        return view('dashboard.options.edit', compact('option', 'data'));
     }
 
     /**
@@ -87,9 +93,17 @@ class OptionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(OptionsRequest $request, $id)
     {
-        //
+        $option = Option::find($id);
+
+        $option->update($request->validated());
+
+        $option->name = $request->name;
+
+        $option->save();
+
+        return redirect()->back();
     }
 
     /**
