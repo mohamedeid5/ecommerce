@@ -28,7 +28,6 @@ class OptionsRequest extends FormRequest
             'price' => 'required|numeric',
             'product_id' => 'required|exists:products,id',
             'variation_id' => 'required|exists:variations,id',
-            'is_active' => 'required',
         ];
     }
 }

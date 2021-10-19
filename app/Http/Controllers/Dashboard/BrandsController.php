@@ -22,7 +22,7 @@ class BrandsController extends Controller
      */
     public function index()
     {
-        $brands = Brand::orderBy('id', 'DESC')->paginate(PAGINATION_NUMBER);
+        $brands = Brand::latest()->paginate(PAGINATION_NUMBER);
 
         return view('dashboard.brands.index', compact('brands'));
     }
@@ -48,7 +48,7 @@ class BrandsController extends Controller
 
         DB::transaction(function () use ($request) {
 
-            $brand = Brand::create($request->except('_token'));
+            $brand = Brand::create($request->validated());
 
             if($request->has('image')) {
 
@@ -56,8 +56,6 @@ class BrandsController extends Controller
             }
 
             $brand->name = $request->name;
-
-            $brand->slug = Str::slug($request->slug, '-');
 
             $brand->save();
 
@@ -85,15 +83,14 @@ class BrandsController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Method edit
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Brand $brand
+     *
+     * @return void
      */
-    public function edit($id)
+    public function edit(Brand $brand)
     {
-        $brand = Brand::find($id);
-
         return view('dashboard.brands.edit', compact('brand'));
     }
 
@@ -111,7 +108,7 @@ class BrandsController extends Controller
 
             $brand = $this->getBrandById($id);
 
-            $brand->update($request->except(['_token', 'image']));
+            $brand->update($request->validated());
 
             if($request->hasFile('image')) {
 

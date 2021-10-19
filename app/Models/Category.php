@@ -5,6 +5,7 @@ namespace App\Models;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Category extends Model
 {
@@ -52,6 +53,18 @@ class Category extends Model
 
 
     /**
+     * Method setSlugAttribute
+     *
+     * @param $value $value [explicite description]
+     *
+     * @return void
+     */
+    public function setSlugAttribute($value)
+    {
+        $this->attributes['slug'] = Str::slug($value, '-');
+    }
+
+    /**
      * Method scopeParent
      *
      * @param $query $query [explicite description]
@@ -95,5 +108,7 @@ class Category extends Model
     public function children() {
         return $this->hasMany(Category::class, 'parent_id');
     }
+
+
 
 }

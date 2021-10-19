@@ -5,6 +5,7 @@ namespace App\Models;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Brand extends Model
 {
@@ -62,10 +63,30 @@ class Brand extends Model
         return $val !== null ? 'admin/images/brands/' . $val : '';
 
     }
-
+    
+    /**
+     * Method scopeIsActive
+     *
+     * @param $query $query [explicite description]
+     *
+     * @return void
+     */
     public function scopeIsActive($query)
     {
         return $query->where('is_active', 1);
     }
+    
+    /**
+     * Method setSlugAttribute
+     *
+     * @param $value $value [explicite description]
+     *
+     * @return void
+     */
+    public function setSlugAttribute($value)
+    {
+        $this->attributes['slug'] = Str::slug($value, '-');
+    }
+
 
 }

@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 
 class Product extends Model
 {
-    use HasFactory, Translatable, SoftDeletes;
+    use HasFactory, Translatable;
 
     /**
      * with

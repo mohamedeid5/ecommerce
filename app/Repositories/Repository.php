@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Interfaces\RepositoryInterface;
+namespace App\Reopsitories;
+
+use App\Interfaces\RepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 
 class Reopsitory implements RepositoryInterface

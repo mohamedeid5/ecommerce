@@ -16,7 +16,7 @@ class VariationsController extends Controller
      */
     public function index()
     {
-        $variations = Variation::orderBy('id', 'DESC')->paginate(PAGINATION_NUMBER);
+        $variations = Variation::latest()->paginate(PAGINATION_NUMBER);
 
         return view('dashboard.variations.index', compact('variations'));
     }
@@ -40,7 +40,7 @@ class VariationsController extends Controller
     public function store(VariationsRequest $request)
     {
 
-        $variations = Variation::create($request->only('is_active'));
+        $variations = Variation::create($request->validated());
 
         $variations->name = $request->name;
 
@@ -62,15 +62,14 @@ class VariationsController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Method edit
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Variation $variation
+     *
+     * @return void
      */
-    public function edit($id)
+    public function edit(Variation $variation)
     {
-        $variation = Variation::find($id);
-
         return view('dashboard.variations.edit', compact('variation'));
     }
 

@@ -15,7 +15,7 @@ return [
     'delete' => 'delete',
     'created_at' => 'created at',
     'updated_at' => 'updated at',
-    'main_categories' => 'Main Categories',
+    'categories' => 'Categories',
     'sub_categories' => 'sub categories',
     'add_category' => 'Add Category',
     'show_all_categories' => 'show all categories',
