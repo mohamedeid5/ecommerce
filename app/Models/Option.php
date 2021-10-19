@@ -39,6 +39,18 @@ class Option extends Model
     protected $translatedAttributes = ['name'];
 
     /**
+     * Method getNameAttribute
+     *
+     * @param $value
+     *
+     * @return void
+     */
+    public function getNameAttribute($value)
+    {
+        return ucwords($value);
+    }
+
+    /**
      * Method variation
      *
      * @return void

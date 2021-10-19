@@ -24,9 +24,9 @@
 
 
             <li class="nav-item"><a href=""><i class="la la-group"></i>
-                    <span class="menu-title" data-i18n="nav.dash.main">{{ __('general.main_categories') }}</span>
+                    <span class="menu-title" data-i18n="nav.dash.main">{{ __('general.categories') }}</span>
                     <span
-                        class="badge badge badge-danger badge-pill float-right mr-2">{{ \App\Models\Category::parent()->count() }}</span>
+                        class="badge badge badge-danger badge-pill float-right mr-2">{{ \App\Models\Category::count() }}</span>
                 </a>
                 <ul class="menu-content">
                     <li class="active"><a class="menu-item" href="{{ route('admin.categories.index') }}"
@@ -71,7 +71,7 @@
             <li class="nav-item"><a href="{{ route('admin.products.index') }}"><i class="la la-male"></i>
                     <span class="menu-title" data-i18n="nav.dash.main">{{ __('admin/products.products') }}</span>
                     <span
-                        class="badge badge badge-success badge-pill float-right mr-2"></span>
+                        class="badge badge badge-success badge-pill float-right mr-2">{{ \App\Models\Product::count() }}</span>
                 </a>
                 <ul class="menu-content">
                     <li class="active"><a class="menu-item" href="{{ route('admin.products.index') }}"
@@ -86,7 +86,7 @@
             <li class="nav-item"><a href="{{ route('admin.variations.index') }}"><i class="la la-male"></i>
                 <span class="menu-title" data-i18n="nav.dash.main">{{ __('admin/variation.variations') }}</span>
                 <span
-                        class="badge badge badge-success badge-pill float-right mr-2"></span>
+                        class="badge badge badge-success badge-pill float-right mr-2">{{ \App\Models\Variation::count() }}</span>
                 </a>
                 <ul class="menu-content">
                     <li class="active"><a class="menu-item" href="{{ route('admin.variations.index') }}"
@@ -101,7 +101,7 @@
             <li class="nav-item"><a href="{{ route('admin.options.index') }}"><i class="la la-male"></i>
                 <span class="menu-title" data-i18n="nav.dash.main">{{ __('admin/options.options') }}</span>
                 <span
-                        class="badge badge badge-success badge-pill float-right mr-2"></span>
+                        class="badge badge badge-success badge-pill float-right mr-2">{{ \App\Models\Option::count() }}</span>
                 </a>
                 <ul class="menu-content">
                     <li class="active"><a class="menu-item" href="{{ route('admin.options.index') }}"

@@ -24,7 +24,7 @@ class LoginController extends Controller
     {
        $remember_me = $request->has('remember-me') ? true : false;
 
-       $credentials = $request->only(['email', 'password']);
+       $credentials = $request->validated();
 
        if (auth()->guard('admin')->attempt($credentials, $remember_me)) {
             return redirect()->intended('admin');
