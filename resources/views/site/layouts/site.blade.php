@@ -48,16 +48,7 @@
 
 @include('site.includes/header')
 
-<!-- Preloader -->
-<div class="preloader">
-    <div class="preloader-inner">
-        <div class="preloader-icon">
-            <span></span>
-            <span></span>
-        </div>
-    </div>
-</div>
-<!-- End Preloader -->
+
 
 
 @yield('content')
@@ -96,5 +87,6 @@
 	<script src="{{ asset('assets/site/js/easing.js') }}"></script>
 	<!-- Active JS -->
 	<script src="{{ asset('assets/site/js/active.js') }}"></script>
+    @stack('js')
 </body>
 </html>

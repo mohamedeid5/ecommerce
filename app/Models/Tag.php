@@ -34,10 +34,16 @@ class Tag extends Model
      */
     protected array $translatedAttributes = ['name'];
 
+    /**
+     * Method setSlugAttribute
+     *
+     * @param $value
+     *
+     * @return void
+     */
     public function setSlugAttribute($value)
     {
         $this->attributes['slug'] = Str::slug($value, '-');
     }
-
 
 }

@@ -3,10 +3,18 @@
 namespace App\Services\Gateways\SMS;
 
 use Exception;
-use Twilio\Http\Client;
+use Twilio\Rest\Client;
 
 class TwilioGateway {
 
+    /**
+     * Method send
+     *
+     * @param $phone
+     * @param $message
+     *
+     * @return void
+     */
     public function send($phone, $message)
     {
         try {

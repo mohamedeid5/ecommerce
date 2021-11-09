@@ -4,18 +4,24 @@
 @endsection
 
 @section('content')
-    <div class="container">
+
+        <div class="row">
+            <div class="col-md-6">
+                @include('site.includes.profile-sidebar')
+            </div>
+            <div class="col-md-4">
         <div class="card-content collapse show">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-8">
 
 
                         @include('dashboard.includes.alerts.errors')
                         @include('dashboard.includes.alerts.success')
-                        <form method="post" action="{{ route('user.update') }}">
+                        <form method="post" action="{{ route('profile.general.update') }}">
                             @csrf
-                            @method('PUT')
+                             @method('put')
+
                             <div class="form-group">
                                 <label for="key">{{ __('general.name') }}</label>
                                 <input type="text" class="form-control" name="name" id="key" value="{{ old('name', $user->name) }}" aria-describedby="key" placeholder="name">
@@ -52,17 +58,7 @@
                 </div>
             </div>
         </div>
-    </div>
+        </div>
+        </div>
 @endsection
 
-
-
-@push('css')
-
-<style>
-    .main-category {
-        display: none;
-    }
-</style>
-
-@endpush

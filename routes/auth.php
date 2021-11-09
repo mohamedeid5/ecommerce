@@ -66,10 +66,10 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
 
 Route::get('/verification-code', [RegisteredUserController::class, 'verificationCode'])
-            ->middleware('guest')
+            ->middleware('web')
             ->name('verification.code.show');
 
 
 Route::post('/verification-code', [RegisteredUserController::class, 'verificationCodePost'])
-            ->middleware('guest')
+            ->middleware('web')
             ->name('verification.code.post');
