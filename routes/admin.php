@@ -23,7 +23,6 @@ Route::group([
 
 
     Route::group([
-        #'namespace'=>'Dashboard',
         'middleware'=>'auth:admin',
         'as'=>'admin.',
         'prefix' => 'admin'

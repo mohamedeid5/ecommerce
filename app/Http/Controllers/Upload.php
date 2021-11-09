@@ -16,7 +16,7 @@ class Upload extends Controller
      */
     public static function upload($request, $folder)
     {
-        $path = $request->store($folder);
+        $request->store($folder);
 
         $fileName = $request->hashName();
 

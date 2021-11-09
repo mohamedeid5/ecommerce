@@ -48,7 +48,6 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'mobile' => ['required', 'string'],
         ]);
 
         $user = User::create([
@@ -60,30 +59,16 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        $verificationData = $this->mobileSms->setVerificationCode($user);
+       //$verificationData = $this->mobileSms->setVerificationCode($user);
 
-        $message = $this->mobileSms->getSmsVerifyMessage($verificationData->code);
+       // $message = $this->mobileSms->getSmsVerifyMessage($verificationData->code);
 
-        app(SMSGatewayService::class)->send($user->mobile, $message);
+       // app(SMSGatewayService::class)->send($user->mobile, $message);
 
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
     }
 
-    public function index()
-    {
-        return view('site.sms.index');
-    }
-
-    public function verificationCode()
-    {
-        return view('auth.verification-code');
-    }
-
-    public function verificationCodePost(Request $request)
-    {
-        return $request;
-    }
 
 }
