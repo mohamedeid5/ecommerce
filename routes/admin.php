@@ -8,6 +8,7 @@ use App\Http\Controllers\Dashboard\SettingsController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\OptionsController;
 use App\Http\Controllers\Dashboard\ProductsController;
+use App\Http\Controllers\Dashboard\SliderController;
 use App\Http\Controllers\Dashboard\TagsController;
 use App\Http\Controllers\Dashboard\VariationsController;
 use Illuminate\Support\Facades\Route;
@@ -87,6 +88,17 @@ Route::group([
 
         // options
         Route::resource('options', OptionsController::class);
+
+        //slider routes
+        Route::group(['prefix' => 'slider'], function() {
+
+            Route::get('/', [SliderController::class, 'create'])->name('slider.create');
+            Route::post('images', [SliderController::class, 'store'])->name('slider.store');
+            Route::post('images/db', [SliderController::class, 'storeImagesDB'])->name('slider.store.db');
+            Route::post('delete/{image}', [SliderController::class, 'deleteImageFromFolder'])->name('slider.delete');
+
+        });
+
 
 
 

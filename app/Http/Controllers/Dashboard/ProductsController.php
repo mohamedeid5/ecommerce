@@ -212,13 +212,24 @@ class ProductsController extends Controller
      *
      * @return void
      */
-    public function addImages(Product $product)
+    public function addImages($id)
     {
-        return view('dashboard.products.images.create', compact('product'));
+        $product = Product::find($id);
+
+        $images = Image::where('imageable_type', 'App\Models\Product')->get(['image']);
+
+        return view('dashboard.products.images.create', compact('product', 'images'));
     }
 
-
-   // save images to folder
+    /**
+     * Method storeImages
+     *
+     * save images to folder
+     *
+     * @param Request $request
+     *
+     * @return void
+     */
     public function storeImages(Request $request)
     {
         $file = $request->file('dzfile');
@@ -232,7 +243,14 @@ class ProductsController extends Controller
 
     }
 
-  // save images to database
+   /**
+    * Method storeImagesDB
+    *
+    * save images to database
+    * @param ImagesRequest $request
+    *
+    * @return void
+    */
    public function storeImagesDB(ImagesRequest $request)
     {
         if ($request->has('images')) {
@@ -248,6 +266,7 @@ class ProductsController extends Controller
        return redirect()->route('admin.products.index');
 
     }
+
 }
 
 

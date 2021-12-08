@@ -22,7 +22,7 @@
                             @foreach ($product->images as $image)
                             <div class="dz-preview dz-image-preview dz-complete">
                                 <div class="dz-image">
-                                    <img src="{{ Storage::url('admin/images/products/' . $id . '/' . $image->image) }}" alt="">
+                                    <img src="{{ Storage::url('admin/images/products/' . $product->id . '/' . $image->image) }}" alt="">
                                 </div>
                             </div>
                             @endforeach
@@ -34,6 +34,29 @@
                 </div>
           </div>
         </div>
+
+        <!-- Gallery -->
+        <h1>Current Images</h1>
+
+        <div class="row">
+        @foreach($images as $image)
+
+        <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+            <img
+            src="{{ Storage::url('/admin/images/products/' . $product->id. '/' . $image->image) }}"
+            class="w-100 shadow-1-strong rounded mb-4"
+            alt=""
+            />
+
+
+        </div>
+
+        @endforeach
+    </div>
+
+
+    </div>
+    <!-- Gallery -->
     </div>
 @endsection
 

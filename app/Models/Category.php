@@ -97,7 +97,7 @@ class Category extends Model
      * @return void
      */
     public function category_parent() {
-        return $this->belongsTo(Category::class, 'parent_id');
+        return $this->belongsTo(self::class, 'parent_id');
     }
 
     /**
@@ -105,10 +105,14 @@ class Category extends Model
      *
      * @return void
      */
-    public function children() {
-        return $this->hasMany(Category::class, 'parent_id');
+    public function childs()
+    {
+        return $this->hasMany(self::class, 'parent_id')->with('childs');
     }
 
-
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'product_categories');
+    }
 
 }
