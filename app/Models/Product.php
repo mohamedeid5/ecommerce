@@ -5,7 +5,6 @@ namespace App\Models;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
 class Product extends Model
@@ -48,11 +47,11 @@ class Product extends Model
     ];
 
     /**
-     * catas
+     * casts
      *
      * @var array
      */
-    protected $catas = [
+    protected $casts = [
         'manage_stock'  => 'boolean',
         'in_stock'      => 'boolean',
         'is_active'     => 'boolean',
@@ -82,7 +81,7 @@ class Product extends Model
     /**
      * Method scopeActive
      *
-     * @param $query $query [explicite description]
+     * @param $query
      *
      * @return void
      */
@@ -141,9 +140,24 @@ class Product extends Model
         return $this->is_active == 1 ? __('general.active') : __('general.not_active');
     }
 
+    /**
+     * Method options
+     *
+     * @return void
+     */
     public function options()
     {
         return $this->hasMany(Option::class);
+    }
+
+    /**
+     * Method users
+     *
+     * @return void
+     */
+    public function user_wishlist()
+    {
+        return $this->belongsToMany(User::class, 'wishlists')->withTimestamps();
     }
 
 }

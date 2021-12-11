@@ -2,20 +2,15 @@
 
 require __DIR__.'/auth.php';
 
-use App\Http\Controllers\Site\VerificationCodeController;
-use App\Http\Controllers\Site\ProfileController;
-use App\Http\Controllers\Dashboard\SmsController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Site\HomeController;
+use App\Http\Controllers\Site\ProfileController;
+use App\Http\Controllers\Site\CategoryController;
+use App\Http\Controllers\Site\ProductsController;
+use App\Http\Controllers\Site\VerificationCodeController;
+use App\Http\Controllers\Site\WishlistController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
-
-Route::get('sms', [SmsController::class, 'index'])->name('sms.index');
-Route::post('sms', [SmsController::class, 'send'])->name('sms.send');
-
-Route::get('/', function () {
-    return view('site.home');
-});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -46,10 +41,24 @@ Route::group(
 
         // guest users
         Route::group(['middleware' => 'guest'], function() {
-            Route::get('public', function() {
-                return 'not auth';
-            });
+
         });
 
+
+        // home route
+        Route::get('/', [HomeController::class, 'home'])->name('home');
+
+        // categories routes
+        Route::get('category/{slug}',  [CategoryController::class, 'productBySlug'])->name('category');
+
+        // product routes
+        Route::get('/{slug}', [ProductsController::class, 'show'])->name('product.show');
+
+        // wishlist routes
+        Route::get('user/wishlist', [WishlistController::class, 'index'])->name('wishlist');
+
+        Route::get('wishlist/{productId}', [WishlistController::class, 'store'])->name('wishlist.store');
+
+        Route::get('user/wishlist/destroy', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
 
 });

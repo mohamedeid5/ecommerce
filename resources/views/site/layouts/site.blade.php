@@ -15,6 +15,9 @@
 	<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
 
 	<!-- StyleSheet -->
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="{{ asset('assets/site/css/bootstrap.css') }}">
@@ -40,16 +43,16 @@
 	<!-- Eshop StyleSheet -->
 	<link rel="stylesheet" href="{{ asset('assets/site/css/reset.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/site/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/site/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/site/css/responsive.css') }}">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
 
     @stack('css')
 
 </head>
 
 @include('site.includes/header')
-
-
-
 
 @yield('content')
 
@@ -87,6 +90,7 @@
 	<script src="{{ asset('assets/site/js/easing.js') }}"></script>
 	<!-- Active JS -->
 	<script src="{{ asset('assets/site/js/active.js') }}"></script>
+    <script src="{{ asset('assets/site/js/main.js') }}"></script>
     @stack('js')
 </body>
 </html>

@@ -42,4 +42,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Method wishlist
+     *
+     *
+     */
+    public function wishlist()
+    {
+        return $this->belongsToMany(Product::class, 'wishlists')->withTimestamps();
+    }
+
+    public function wishlistHas($productId)
+    {
+        return $this->wishlist()->where('product_id', $productId)->exists();
+    }
+
 }
