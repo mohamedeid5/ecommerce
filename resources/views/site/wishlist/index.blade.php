@@ -4,7 +4,7 @@
 
 <div class="container">
 
-    <h2>{{ $category->name }} ({{ count($products) }}) </h2>
+    <h3>Wishlist ({{ count($products) }})</h3>
 
     @if(count($products) > 0)
 
@@ -12,7 +12,7 @@
             @foreach ($products as $product)
             <div class="col-xl-3 col-lg-4 col-md-4 col-12">
 
-            <div class="single-product">
+            <div class="single-product wishlist-product-{{ $product->id }}">
                 <div class="product-img">
                     <a href="product-details.html">
                         <img class="default-img" src="{{ Storage::url('admin/images/products/'.$product->id.'/'.$product->images->first()->image) }}" alt="#">
@@ -21,9 +21,9 @@
                     <div class="button-head">
                         <div class="product-action">
                             <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
-                            <a title="Wishlist" class="addToWishList" data-product-id="{{ $product->id }}" href="{{ route('wishlist.store', $product->id) }}">
+                            <a title="Wishlist" class="removeFromWishlist" data-product-id="{{ $product->id }}" href="{{ route('wishlist.destroy') }}">
                                 <i class="far fa-heart {{ auth()->user()->wishlistHas($product->id) ? ' fw-900' : '' }}  product-{{ $product->id }}"></i>
-                                <span class="addToWishlistMessage-{{ $product->id }}">{{ auth()->user()->wishlistHas($product->id) ? 'remove from wish list' : 'add to wishlist' }}</span>
+                                <span>remove from Wishlist</span>
                             </a>
                             <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
                         </div>

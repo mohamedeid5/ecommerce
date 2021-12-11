@@ -50,6 +50,27 @@
                 <del>{{ $product->price  }}</del>
             @endif
             <p>{{ $product->description }}</p>
+            <span>categories: </span>
+            @foreach ($product->categories as $category)
+                <span>{{ $category->name }}</span>
+            @endforeach
+            <br>
+            <span>tags: </span>
+            @foreach ($product->tags as $tag)
+                <span>{{ $tag->name }}</span>
+            @endforeach
+            <br>
+            <span>Availability: </span>
+            <span>{{ $product->in_stock == true ? 'in stock' : 'out of stock' }}</span>
+            <br>
+            <span>quantity</span> <br>
+            <input type="number" class="form-group input-number" value="1" min="1" max="{{ $product->qty }}" name="qty">
+
+            <div class="cart mt-4 align-items-center">
+                <button class="btn btn-danger text-uppercase mr-2 px-4">Add to cart</button>
+                <i class="fa fa-heart text-muted"></i>
+                <i class="fa fa-share-alt text-muted"></i>
+            </div>
         </div>
     </div>
 </div>

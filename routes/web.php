@@ -55,8 +55,10 @@ Route::group(
         Route::get('/{slug}', [ProductsController::class, 'show'])->name('product.show');
 
         // wishlist routes
-        Route::get('wishlist', [WishlistController::class, 'show'])->name('wishlist');
+        Route::get('user/wishlist', [WishlistController::class, 'index'])->name('wishlist');
 
         Route::get('wishlist/{productId}', [WishlistController::class, 'store'])->name('wishlist.store');
+
+        Route::get('user/wishlist/destroy', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
 
 });
